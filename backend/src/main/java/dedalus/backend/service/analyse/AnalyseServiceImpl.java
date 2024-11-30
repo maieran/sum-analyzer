@@ -1,4 +1,4 @@
-package dedalus.backend.sumanalyzer.service.calculate;
+package dedalus.backend.service.analyse;
 
 import org.springframework.stereotype.Service;
 
