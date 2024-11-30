@@ -1,8 +1,8 @@
 package dedalus.backend.service.analyse;
 
-import dedalus.backend.dto.InputDTO;
 import dedalus.backend.dto.ResultDTO;
+import dedalus.backend.model.InputData;
 
 public interface AnalyseService {
-    ResultDTO analyseSum(InputDTO inputDTO);
+    ResultDTO analyseSum(InputData previousData , InputData currentData);
 }

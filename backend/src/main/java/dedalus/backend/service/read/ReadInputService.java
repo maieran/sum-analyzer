@@ -1,9 +1,11 @@
 package dedalus.backend.service.read;
 
 import dedalus.backend.dto.InputDTO;
+import dedalus.backend.model.InputData;
 
 public interface ReadInputService {
-    void read(InputDTO inputDTO);
-    InputDTO getPreviousInput(); // Liefert den vorherigen Input zurück
+    InputData readAndMapInputDtoToInputData (InputDTO inputDTO);
+    void saveInputData(InputData inputData);
+    InputData getPreviousInput();
 
 }

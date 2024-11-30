@@ -10,6 +10,7 @@ import java.util.TreeMap;
 @AllArgsConstructor
 public class ResultDTO {
     
-    private TreeMap<Double, Integer> resultTree;
+    //private TreeMap<Double, Integer> resultTree;
+    double outputValue;
 
 }

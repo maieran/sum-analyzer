@@ -1,11 +1,12 @@
 package dedalus.backend.service.input;
 
 import dedalus.backend.dto.InputDTO;
+import dedalus.backend.model.InputData;
 
 public interface InputDataService {
 
-    void saveInput(InputDTO inputDTO);
+    void saveInput(InputData InputData);
 
-    InputDTO getLastInput();
+    InputData getLastInput();
 
 }
