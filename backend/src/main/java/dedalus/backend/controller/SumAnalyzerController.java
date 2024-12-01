@@ -42,8 +42,6 @@ public class SumAnalyzerController {
 
         ResultDTO analysisResult = analyseService.analyseSum(previousData, currentData);
         
-
-
         writeResultService.write(analysisResult);
 
         return ResponseEntity.ok(analysisResult);
