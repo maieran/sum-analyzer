@@ -9,6 +9,7 @@ import io.micrometer.common.lang.NonNull;
 
 /**
  * Ermöglicht HTTP-Anfragen zwischen Angular-Frontend und Spring-Boot-Backend
+ * Quelle: https://spring.io/guides/gs/rest-service-cors
  */
 @Configuration
 public class WebConfig {
