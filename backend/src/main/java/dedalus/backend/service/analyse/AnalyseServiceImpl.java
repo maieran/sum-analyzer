@@ -1,5 +1,6 @@
 package dedalus.backend.service.analyse;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.TreeMap;
 
@@ -12,61 +13,46 @@ import dedalus.backend.model.InputData;
 public class AnalyseServiceImpl implements AnalyseService {
 
 
-    // @Override
-    // public ResultDTO analyseSum(InputData previousData, InputData currentData) {
-    //    ResultDTO resultDTO = new ResultDTO();
-        
-       
-
-
-    //     if (previousData != null) {
-    //         double currentSum = currentData.getSumValue();
-    //         double previousSum = previousData.getSumValue();
-    //         double difference = currentSum - previousSum;
-    //         resultDTO.setOutputValue(difference);
-
-    //         return resultDTO;
-    //     } 
-        
-    //     //else
-    //     resultDTO.setOutputValue(Integer.MIN_VALUE);
-
-    //     return resultDTO;
-    // }
-
-
     @Override
     public ResultDTO analyseSum(InputData previousData, InputData currentData) {
        ResultDTO resultDTO = new ResultDTO();
-       double[] coinsAndBanknotes = {200, 100, 50, 20, 10, 5, 2, 1, 0.50, 0.20, 0.10, 0.05, 0.01}; //unser 
+       
         
         if (previousData != null) {
-            double currentSum = currentData.getSumValue();
-            double previousSum = previousData.getSumValue();
+            getDifferenceTreeMap(previousData, currentData, resultDTO);
             
-            //generateSumFitting
-
-
-            //cleanSumFitting
-
-
-            //compareSumFitting
-
-
-
             return resultDTO;
         } 
         
-        //else
-        //resultDTO.setOutputValue();
+        //else case
+        getCurrentTreeMap(currentData, resultDTO);
 
         return resultDTO;
     }
 
-    private TreeMap<Double, Integer> generateSumFitting (double inputSum, double[] coinsAndBankNotes) {
-        TreeMap<Double, Integer> sumFitting = new TreeMap<>(Collections.reverseOrder());
+    private void getCurrentTreeMap(InputData currentData, ResultDTO resultDTO) {
+        double currentSum = currentData.getSumValue();
+        TreeMap<Double, Integer> currentTreeMap = doSumFitting(currentSum);
+        resultDTO.setResultTree(currentTreeMap);
+    }
 
-        for (double currentFit : coinsAndBankNotes) {
+    private void getDifferenceTreeMap(InputData previousData, InputData currentData, ResultDTO resultDTO) {
+        double currentSum = currentData.getSumValue();
+        double previousSum = previousData.getSumValue();
+
+        TreeMap<Double, Integer> currentTreeMap = doSumFitting(currentSum);
+        TreeMap<Double, Integer> previousTreeMap = doSumFitting(previousSum);
+
+        TreeMap<Double, Integer> differenceTreeMap = doDifferenceSumFitting(currentTreeMap, previousTreeMap);
+
+        resultDTO.setResultTree(differenceTreeMap);
+    }
+
+    private TreeMap<Double, Integer> doSumFitting (double inputSum) {
+        TreeMap<Double, Integer> sumFitting = new TreeMap<>(Collections.reverseOrder());
+        double[] coinsAndBanknotes = {200, 100, 50, 20, 10, 5, 2, 1, 0.50, 0.20, 0.10, 0.05, 0.01};
+
+        for (double currentFit : coinsAndBanknotes) {
             if (inputSum >= currentFit) {
                 int amount = (int) (inputSum / currentFit);
                 sumFitting.put(currentFit, amount);
@@ -76,9 +62,20 @@ public class AnalyseServiceImpl implements AnalyseService {
         return sumFitting;
     }
 
-    private TreeMap<Double, Integer> compareOldSumWithNewSum(TreeMap<Double, Integer> previousSumFitting, TreeMap<Double, Integer> currentSumFitting) {
+    private TreeMap<Double, Integer> doDifferenceSumFitting (TreeMap<Double, Integer> previousSumFitting, TreeMap<Double, Integer> currentSumFitting) {
         TreeMap<Double, Integer> differenceFittings = new TreeMap<>(Collections.reverseOrder());
+        double[] coinsAndBanknotes = {200, 100, 50, 20, 10, 5, 2, 1, 0.50, 0.20, 0.10, 0.05, 0.01};
 
+        //Initialisiere 
+        for (double coinOrBankNote : coinsAndBanknotes) {
+            differenceFittings.put(coinOrBankNote, 0);
+        }
+
+        for (Double coinOrBankNotesValue : differenceFittings.keySet()) {
+            int alteAnzahl = previousSumFitting.getOrDefault(coinOrBankNotesValue, 0);
+            int neueAnzahl = currentSumFitting.getOrDefault(coinOrBankNotesValue, 0);
+            differenceFittings.put(coinOrBankNotesValue, alteAnzahl - neueAnzahl);
+        }
 
         return differenceFittings; 
     }

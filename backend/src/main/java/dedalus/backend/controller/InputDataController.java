@@ -1,6 +1,5 @@
 package dedalus.backend.controller;
 
-import java.net.http.HttpResponse.ResponseInfo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
