@@ -12,7 +12,7 @@ public class WriteResultServiceImpl implements WriteResultService {
 
     @Override
     public void write(ResultDTO resultDTO) {
-        String resultMessage = "Schein-oder Münzenart: %.2f €, Differenz: %+d\n";
+        String resultMessage = "Schein-oder Münzenart: %.2f EUR, Differenz: %+d\n";
         StringBuilder result = new StringBuilder();
         
         for (Map.Entry<Double, Integer> entry : resultDTO.getResultTree().entrySet()) {
