@@ -1,1 +1,40 @@
-<p>input works!</p>
+<div>
+  <h1>Sum-Fit Analyzer in EUR</h1>
+  <h2>Analysis Mode: {{ selectedTechnology }}</h2>
+
+  <label for="technology">Choose a technology for sum fit analysis: </label>
+  <select id="technology" [(ngModel)]="selectedTechnology">
+    <option value="Frontend">Angular 19 (Frontend)</option>
+    <option value="Backend">Spring Boot 3 (Backend)</option>
+  </select>
+
+  <br/><br/>
+
+  <label for="value">Enter Sum Value:</label>
+  <input type="number" id="value" [(ngModel)]="inputValue" />
+
+  <br/><br/>
+
+  <button (click)="startAnalysis()">Analyse!</button>
+
+  <br/><br/>
+
+  <table *ngIf="previousSum !== null && currentSum !== null" class="sum-table">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Sum Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Previous Sum</td>
+        <td>{{ previousSum }}</td>
+      </tr>
+      <tr>
+        <td>Current Sum</td>
+        <td>{{ currentSum }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

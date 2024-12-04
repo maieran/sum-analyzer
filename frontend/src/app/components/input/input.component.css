@@ -1,0 +1,25 @@
+.sum-table {
+  margin: 20px auto;
+  border-collapse: collapse;
+  width: 80%;
+}
+
+.sum-table th, .sum-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.sum-table th {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+.sum-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.sum-table tr:hover {
+  background-color: #ddd;
+}

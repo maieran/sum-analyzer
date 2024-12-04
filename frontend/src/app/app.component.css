@@ -1,45 +1,43 @@
-/* Allgemeine Stile */
 .container {
-    font-family: Arial, sans-serif;
-    margin: 0 auto;
-    max-width: 800px;
-    text-align: center;
-  }
-  
-  header {
-    background-color: #007bff;
-    color: white;
-    padding: 20px;
-    border-radius: 8px;
-  }
-  
-  header h1 {
-    margin: 0;
-    font-size: 2em;
-  }
-  
-  nav {
-    margin-top: 10px;
-  }
-  
-  nav a {
-    color: white;
-    text-decoration: none;
-    margin: 0 10px;
-    font-weight: bold;
-  }
-  
-  nav a.active {
-    text-decoration: underline;
-  }
-  
-  main {
-    margin: 20px 0;
-  }
-  
-  footer {
-    margin-top: 20px;
-    font-size: 0.8em;
-    color: #555;
-  }
-  
+  font-family: Arial, sans-serif;
+  margin: 0 auto;
+  max-width: 800px;
+  text-align: center;
+}
+
+header {
+  background-color: #007bff;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2em;
+}
+
+nav {
+  margin-top: 10px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+  font-weight: bold;
+}
+
+nav a.active {
+  text-decoration: underline;
+}
+
+main {
+  margin: 20px 0;
+}
+
+footer {
+  margin-top: 20px;
+  font-size: 0.8em;
+  color: #555;
+}
