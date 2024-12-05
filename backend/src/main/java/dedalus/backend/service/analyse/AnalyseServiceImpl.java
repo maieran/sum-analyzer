@@ -1,6 +1,5 @@
 package dedalus.backend.service.analyse;
 
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.TreeMap;
 
@@ -11,46 +10,47 @@ import dedalus.backend.model.InputData;
 
 @Service
 public class AnalyseServiceImpl implements AnalyseService {
-
+    public static double[] coinsAndBanknotes = {200, 100, 50, 20, 10, 5, 2, 1, 0.50, 0.20, 0.10, 0.05, 0.01};
 
     @Override
     public ResultDTO analyseSum(InputData previousData, InputData currentData) {
        ResultDTO resultDTO = new ResultDTO();
        
-        
         if (previousData != null) {
-            getDifferenceTreeMap(previousData, currentData, resultDTO);
+            calculateDifference(previousData, currentData, resultDTO);
             
             return resultDTO;
         } 
         
-        //else case
-        getCurrentTreeMap(currentData, resultDTO);
+        //else case just result tree
+        analyseCurrent(currentData, resultDTO);
 
         return resultDTO;
     }
 
-    private void getCurrentTreeMap(InputData currentData, ResultDTO resultDTO) {
+    private void calculateDifference(InputData previousData, InputData currentData, ResultDTO resultDTO) {
+        double previousSum = previousData.getSumValue();
+        double currentSum = currentData.getSumValue();
+        
+
+        TreeMap<Double, Integer> previousTreeMap = doSumFitting(previousSum);
+        TreeMap<Double, Integer> currentTreeMap = doSumFitting(currentSum);
+        
+
+        TreeMap<Double, Integer> differenceTreeMap = doDifferenceSumFitting(currentTreeMap, previousTreeMap);
+
+        resultDTO.setDifferenceTree(differenceTreeMap);
+        resultDTO.setResultTree(currentTreeMap);
+    }
+
+    private void analyseCurrent(InputData currentData, ResultDTO resultDTO) {
         double currentSum = currentData.getSumValue();
         TreeMap<Double, Integer> currentTreeMap = doSumFitting(currentSum);
         resultDTO.setResultTree(currentTreeMap);
     }
 
-    private void getDifferenceTreeMap(InputData previousData, InputData currentData, ResultDTO resultDTO) {
-        double currentSum = currentData.getSumValue();
-        double previousSum = previousData.getSumValue();
-
-        TreeMap<Double, Integer> currentTreeMap = doSumFitting(currentSum);
-        TreeMap<Double, Integer> previousTreeMap = doSumFitting(previousSum);
-
-        TreeMap<Double, Integer> differenceTreeMap = doDifferenceSumFitting(currentTreeMap, previousTreeMap);
-
-        resultDTO.setResultTree(differenceTreeMap);
-    }
-
     private TreeMap<Double, Integer> doSumFitting (double inputSum) {
         TreeMap<Double, Integer> sumFitting = new TreeMap<>(Collections.reverseOrder());
-        double[] coinsAndBanknotes = {200, 100, 50, 20, 10, 5, 2, 1, 0.50, 0.20, 0.10, 0.05, 0.01};
 
         for (double currentFit : coinsAndBanknotes) {
             if (inputSum >= currentFit) {
@@ -64,7 +64,6 @@ public class AnalyseServiceImpl implements AnalyseService {
 
     private TreeMap<Double, Integer> doDifferenceSumFitting (TreeMap<Double, Integer> previousSumFitting, TreeMap<Double, Integer> currentSumFitting) {
         TreeMap<Double, Integer> differenceFittings = new TreeMap<>(Collections.reverseOrder());
-        double[] coinsAndBanknotes = {200, 100, 50, 20, 10, 5, 2, 1, 0.50, 0.20, 0.10, 0.05, 0.01};
 
         //Initialisiere 
         for (double coinOrBankNote : coinsAndBanknotes) {
