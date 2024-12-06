@@ -8,7 +8,12 @@ export interface InputDTO {
 }
 
 export interface ResultDTO {
-  message: string;
+  resultTree : { [key: number]: number };
+  differenceTree: { [key: number]: number };
+}
+
+export interface InputData {
+  value: number;
 }
 
 @Injectable({
@@ -23,7 +28,7 @@ export class BackendService {
     return this.http.post<ResultDTO>(`${this.apiUrl}/analyseSum`, input);
   }
 
-  getLastResult(): Observable<ResultDTO> {
-    return this.http.get<ResultDTO>(`${this.apiUrl}/lastResult`);
+  getLastResult(): Observable<InputData> {
+    return this.http.get<InputData>(`${this.apiUrl}/lastResult`);
   }
 }
