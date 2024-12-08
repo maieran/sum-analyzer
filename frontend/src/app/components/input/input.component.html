@@ -19,6 +19,7 @@
 
   <br/><br/>
 
+  <!-- Tabelle für Previous und Current Sum -->
   <table *ngIf="previousSum !== null && currentSum !== null" class="sum-table">
     <thead>
       <tr>
@@ -38,5 +39,39 @@
     </tbody>
   </table>
 
+  <br/><br/>
 
+  <!-- Tabelle für resultTree -->
+  <table *ngIf="resultTree !== null" class="result-table">
+    <thead>
+      <tr>
+        <th>Schein/Münze</th>
+        <th>Anzahl</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let entry of getTreeEntries(resultTree)">
+        <td>{{ entry.key }}</td>
+        <td>{{ entry.value }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <br/><br/>
+
+  <!-- Tabelle für differenceTree -->
+  <table *ngIf="differenceTree !== null" class="result-table">
+    <thead>
+      <tr>
+        <th>Schein/Münze</th>
+        <th>Differenz</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let entry of getTreeEntries(differenceTree)">
+        <td>{{ entry.key }}</td>
+        <td>{{ entry.value }}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

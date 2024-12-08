@@ -12,7 +12,7 @@ export interface ResultDTO {
   differenceTree: { [key: number]: number };
 }
 
-export interface InputData {
+export interface InputDataDTO {
   value: number;
 }
 
@@ -20,6 +20,7 @@ export interface InputData {
   providedIn: 'root',
 })
 export class BackendService {
+  [x: string]: any;
   private apiUrl = 'http://localhost:8080/dedalus-api/sumanalyzer';
 
   constructor(private http: HttpClient) {}
@@ -28,7 +29,7 @@ export class BackendService {
     return this.http.post<ResultDTO>(`${this.apiUrl}/analyseSum`, input);
   }
 
-  getLastResult(): Observable<InputData> {
-    return this.http.get<InputData>(`${this.apiUrl}/lastResult`);
+  getLatestInputData(): Observable<InputDataDTO> {
+    return this.http.get<InputDataDTO>(`${this.apiUrl}/latestInputData`);
   }
 }
