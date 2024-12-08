@@ -30,10 +30,12 @@ export class InputComponent {
 
   private runBackendAnalysis(): void {
     const input = { value: this.inputValue, timestamp: new Date().toISOString() };
-
+  
     this.backendService.sendInput(input).subscribe((result: ResultDTO) => {
       this.previousSum = this.currentSum;
       this.currentSum = this.inputValue;
+  
+      // Setze die Bäume für die Anzeige
       this.resultTree = result.resultTree;
       this.differenceTree = result.differenceTree;
     });
@@ -44,13 +46,19 @@ export class InputComponent {
     this.currentSum = this.inputValue;
   }
 
-  getTreeEntries(tree: { [key: number]: number }): { key: number; value: number }[] {
+
+  getTreeEntries(tree: { [key: string]: number }): { key: number; value: number }[] {
+    if (!tree) {
+      return [];
+    }
     return Object.keys(tree)
-      .map((key) => ({
-        key: Number(key), // Konvertiere Schlüssel explizit in eine Zahl
-        value: tree[Number(key)], // Verwende den konvertierten Schlüssel
-      }))
-      .sort((a, b) => b.key - a.key); // Sortiere nach Schlüssel
+      .map((key) => {
+        const numKey = parseFloat(key);
+        return {
+          key: parseFloat(numKey.toFixed(2)), // Auf 2 Nachkommastellen begrenzen
+          value: tree[key],
+        };
+      })
+      .sort((a, b) => b.key - a.key);
   }
-  
 }
