@@ -1,43 +1,42 @@
-/* tree-container selectors */
+/* Container für die beiden Tabellen */
 .tree-container {
   display: flex;
-  justify-content: space-between ;
-  vertical-align: top;
-} 
+  justify-content: space-between;
+  align-items: flex-start;
+}
 
-
-/* sum-table selectors */
-.sum-table, 
+/* Allgemeine Tabellen-Stile */
+.sum-table,
 .result-table {
   margin: 20px auto;
-  border-collapse:collapse;
-  width: 100%;
+  border-collapse: collapse;
+  width: 45%;
 }
 
-.sum-table th, .result-table th {
-  font-weight: 500px;
-}
-
-.sum-table th, .sum-table td
-.result-table th, .result-table td {
+.sum-table th,
+.result-table th,
+.sum-table td,
+.result-table td {
   border: 1px solid #ddd;
- /*  padding: 8px; */
-  text-align: center;
+  padding: 8px;
+  text-align: center; /* Zentralisiert den Inhalt */
+  vertical-align: middle; /* Vertikale Zentrierung */
 }
 
-.sum-table th {
-/*   background-color: #007bff;
+/* Kopfzeilen-Stile */
+.sum-table th,
+.result-table th {
+  background-color: #007bff;
   color: white;
-  font-weight: bold; */
+  font-weight: bold;
 }
 
-.sum-table tr:nth-child(even) {
-/*   background-color: #f2f2f2; */
+.sum-table tr:nth-child(even),
+.result-table tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
 
-/* .sum-table tr:hover {
+.sum-table tr:hover,
+.result-table tr:hover {
   background-color: #ddd;
-} */
-
-
-
+}
