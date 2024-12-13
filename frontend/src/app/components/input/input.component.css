@@ -19,8 +19,8 @@
 .result-table td {
   border: 1px solid #ddd;
   padding: 8px;
-  text-align: center; /* Zentralisiert den Inhalt */
-  vertical-align: middle; /* Vertikale Zentrierung */
+  text-align: center;
+  vertical-align: middle; 
 }
 
 /* Kopfzeilen-Stile */
