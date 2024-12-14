@@ -1,0 +1,76 @@
+<h1>Sum-Fit Analyzer in EUR (€)</h1>
+<h2>Analysis Mode: {{ selectedTechnology }}</h2>
+
+<label for="technology">Choose a technology for sum fit analysis: </label>
+<select id="technology" [(ngModel)]="selectedTechnology">
+  <option value="Frontend">Angular 19 (Frontend)</option>
+  <option value="Backend">Spring Boot 3 (Backend)</option>
+</select>
+
+<br/><br/>
+
+<label for="value">Enter Sum (€):</label>
+<input type="number" id="value" [(ngModel)]="inputValue" />
+
+<br/><br/>
+
+<button (click)="startAnalysis()">Analyse!</button>
+
+<br/><br/>
+
+<!-- Tabelle für Previous und Current Sum -->
+<table *ngIf="previousSum !== null && currentSum !== null" class="sum-table">
+  <thead>
+    <tr>
+      <th>Previous Sum</th>
+      <th>Current Sum</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ previousSum }}</td>
+      <td>{{ currentSum }}</td>
+    </tr>
+    <tr>
+      
+    </tr>
+  </tbody>
+</table>
+
+<br/><br/>
+
+<!-- Tabelle für resultTree -->
+<div class="tree-container">
+<table *ngIf="resultTree !== null" class="result-table">
+  <thead>
+    <tr>
+      <th>Schein/Münze</th>
+      <th>Anzahl</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let entry of getTreeEntries(resultTree)">
+      <td>{{ entry.key }}</td>
+      <td>{{ entry.value }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<br/><br/>
+
+<!-- Tabelle für differenceTree -->
+<table *ngIf="differenceTree !== null" class="result-table">
+  <thead>
+    <tr>
+      <th>Schein/Münze</th>
+      <th>Differenz</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let entry of getTreeEntries(differenceTree)">
+      <td>{{ entry.key }}</td>
+      <td>{{ entry.value }}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
