@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dedalus.backend.dto.InputDTO;
+import dedalus.backend.dto.InputDataDTO;
 import dedalus.backend.model.InputData;
 import dedalus.backend.service.read.ReadInputService;
 import jakarta.validation.Valid;
@@ -34,11 +35,16 @@ public class InputDataController {
     }
 
 
-    //TODO: CHECK OUT THAT LAST INPUT
     @GetMapping("/lastInput")
     public ResponseEntity<InputData> getLastInput() {
         InputData lastInput = readInputService.getPreviousInput();
         return ResponseEntity.ok(lastInput);
+    }
+
+    @GetMapping("/latestInputData")
+    public ResponseEntity<InputDataDTO> getLatestInput() {
+        InputDataDTO latestData = readInputService.getPreviousInputDTO();
+        return ResponseEntity.ok(latestData);
     }
 
     

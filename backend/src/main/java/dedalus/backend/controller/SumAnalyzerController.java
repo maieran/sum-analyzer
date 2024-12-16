@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dedalus.backend.dto.InputDTO;
+import dedalus.backend.dto.InputDataDTO;
 import dedalus.backend.dto.ResultDTO;
 import dedalus.backend.model.InputData;
 import dedalus.backend.service.analyse.AnalyseService;
@@ -31,19 +32,12 @@ public class SumAnalyzerController {
 
     @PostMapping("/analyseSum")
     public ResponseEntity<ResultDTO> generateSumAnalysis(@Valid @RequestBody InputDTO inputDTO) {
-
-
         InputData previousData = readInputService.getPreviousInput();
-
-     
         InputData currentData = readInputService.readAndMapInputDtoToInputData(inputDTO);
         readInputService.saveInputData(currentData);
-
-
         ResultDTO analysisResult = analyseService.analyseSum(previousData, currentData);
-        
         writeResultService.write(analysisResult);
-
+        
         return ResponseEntity.ok(analysisResult);
     }
 

@@ -10,7 +10,7 @@ import dedalus.backend.model.InputData;
 
 @Service
 public class AnalyseServiceImpl implements AnalyseService {
-    public static double[] coinsAndBanknotes = {200, 100, 50, 20, 10, 5, 2, 1, 0.50, 0.20, 0.10, 0.05, 0.01};
+    public static double[] coinsAndBanknotes = {200, 100, 50, 20, 10, 5, 2, 1, 0.50, 0.20, 0.10, 0.05, 0.02, 0.01};
 
     @Override
     public ResultDTO analyseSum(InputData previousData, InputData currentData) {
@@ -49,19 +49,29 @@ public class AnalyseServiceImpl implements AnalyseService {
         resultDTO.setResultTree(currentTreeMap);
     }
 
-    private TreeMap<Double, Integer> doSumFitting (double inputSum) {
-        TreeMap<Double, Integer> sumFitting = new TreeMap<>(Collections.reverseOrder());
 
+
+    private TreeMap<Double, Integer> doSumFitting(double inputSum) {
+        TreeMap<Double, Integer> sumFitting = new TreeMap<>(Collections.reverseOrder());
+    
+        //Eingabebetrag wird auf Cent genau umgerechnet, um Rundungsfehler zu vermeiden
+        int remainingCents = (int) Math.round(inputSum * 100);
+    
         for (double currentFit : coinsAndBanknotes) {
-            if (inputSum >= currentFit) {
-                int amount = (int) (inputSum / currentFit);
+            //Umrechung des Bestückelungswert auf Cent genau
+            int currentFitInCents = (int) Math.round(currentFit * 100);
+    
+            //Auf Cent genaue Berechnung
+            if (remainingCents >= currentFitInCents) {
+                int amount = remainingCents / currentFitInCents;
                 sumFitting.put(currentFit, amount);
-                inputSum %= currentFit;
+                remainingCents %= currentFitInCents;
             }
         }
+    
         return sumFitting;
     }
-
+    
     private TreeMap<Double, Integer> doDifferenceSumFitting (TreeMap<Double, Integer> previousSumFitting, TreeMap<Double, Integer> currentSumFitting) {
         TreeMap<Double, Integer> differenceFittings = new TreeMap<>(Collections.reverseOrder());
 

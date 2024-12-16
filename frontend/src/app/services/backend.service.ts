@@ -32,4 +32,12 @@ export class BackendService {
   getLatestInputData(): Observable<InputDataDTO> {
     return this.http.get<InputDataDTO>(`${this.apiUrl}/latestInputData`);
   }
+
+  saveInput(input: InputDTO): void {
+    this.http.post<void>(`${this.apiUrl}/saveInput`, input).subscribe({
+      next: () => console.log('Input erfolgreich gespeichert:', input),
+      error: (err) => console.error('Fehler beim Speichern des Inputs:', err),
+    });
+  }
+  
 }
