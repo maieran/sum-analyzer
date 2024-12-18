@@ -3,7 +3,7 @@ WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 RUN mvn clean package -DskipTests
-RUN ls -l /app/target # Debugging: Zeige den Inhalt des target-Verzeichnisses an
+RUN ls -l /app/target # Debugging: Inhalt des target-Verzeichnisses 
 
 FROM openjdk:21-jdk-slim
 WORKDIR /backend
